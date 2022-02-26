@@ -150,7 +150,7 @@ public class Args {
         String parameter = null;
         try {
             parameter = args[currentArgument];
-            intArgs.put(argChar, new Integer(parameter));
+            intArgs.put(argChar, Integer.parseInt(parameter));
         } catch (ArrayIndexOutOfBoundsException e){
             valid = false;
             errorArgumentId = argChar;
