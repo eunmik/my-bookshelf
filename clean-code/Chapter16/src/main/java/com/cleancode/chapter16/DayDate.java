@@ -104,35 +104,17 @@ public abstract class DayDate implements Comparable,
     private static final int[] LAST_DAY_OF_MONTH =
             {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+    public enum WeekInMonth {
+        FIRST(1), SECOND(2), THIRD(3), FOURTH(4), LAST(0);
+        public final int index;
+        WeekInMonth(int index) {
+            this.index = index;
+        }
 
-
-    /** A useful constant for referring to the first week in a month. */
-    public static final int FIRST_WEEK_IN_MONTH = 1;
-
-    /** A useful constant for referring to the second week in a month. */
-    public static final int SECOND_WEEK_IN_MONTH = 2;
-
-    /** A useful constant for referring to the third week in a month. */
-    public static final int THIRD_WEEK_IN_MONTH = 3;
-
-    /** A useful constant for referring to the fourth week in a month. */
-    public static final int FOURTH_WEEK_IN_MONTH = 4;
-
-    /** A useful constant for referring to the last week in a month. */
-    public static final int LAST_WEEK_IN_MONTH = 0;
-
-    /** Useful range constant. */
-    public static final int INCLUDE_NONE = 0;
-
-    /** Useful range constant. */
-    public static final int INCLUDE_FIRST = 1;
-
-    /** Useful range constant. */
-    public static final int INCLUDE_SECOND = 2;
-
-    /** Useful range constant. */
-    public static final int INCLUDE_BOTH = 3;
-
+        public int toInt(){
+            return index;
+        }
+    }
     /**
      * Useful constant for specifying a day of the week relative to a fixed
      * date.
@@ -244,21 +226,21 @@ public abstract class DayDate implements Comparable,
      *
      * @return the quarter that the month belongs to.
      */
-    public static int monthCodeToQuarter(final int code) {
+    public static int monthCodeToQuarter(final Month code) {
 
         switch(code) {
-            case 1:
-            case 2:
-            case 3: return 1;
-            case 4:
-            case 5:
-            case 6: return 2;
-            case 7:
-            case 8:
-            case 9: return 3;
-            case 10:
-            case 11:
-            case 12: return 4;
+            case JANUARY:
+            case FEBRUARY:
+            case MARCH: return 1;
+            case APRIL:
+            case MAY:
+            case JUNE: return 2;
+            case JULY:
+            case AUGUST:
+            case SEPTEMBER: return 3;
+            case OCTOBER:
+            case NOVEMBER:
+            case DECEMBER: return 4;
             default: throw new IllegalArgumentException(
                     "SerialDate.monthCodeToQuarter: invalid month code.");
         }
@@ -372,14 +354,14 @@ public abstract class DayDate implements Comparable,
      * @return <code>true</code> if the supplied integer code represents a
      *         valid week-in-the-month.
      */
-    public static boolean isValidWeekInMonthCode(final int code) {
+    public static boolean isValidWeekInMonthCode(final WeekInMonth code) {
 
         switch(code) {
-            case FIRST_WEEK_IN_MONTH:
-            case SECOND_WEEK_IN_MONTH:
-            case THIRD_WEEK_IN_MONTH:
-            case FOURTH_WEEK_IN_MONTH:
-            case LAST_WEEK_IN_MONTH: return true;
+            case FIRST:
+            case SECOND:
+            case THIRD:
+            case FOURTH:
+            case LAST: return true;
             default: return false;
         }
 
@@ -627,14 +609,14 @@ public abstract class DayDate implements Comparable,
      *
      * @return a string corresponding to the week-in-the-month code.
      */
-    public static String weekInMonthToString(final int count) {
+    public static String weekInMonthToString(final WeekInMonth count) {
 
         switch (count) {
-            case DayDate.FIRST_WEEK_IN_MONTH : return "First";
-            case DayDate.SECOND_WEEK_IN_MONTH : return "Second";
-            case DayDate.THIRD_WEEK_IN_MONTH : return "Third";
-            case DayDate.FOURTH_WEEK_IN_MONTH : return "Fourth";
-            case DayDate.LAST_WEEK_IN_MONTH : return "Last";
+            case FIRST : return "First";
+            case SECOND : return "Second";
+            case THIRD : return "Third";
+            case FOURTH : return "Fourth";
+            case LAST : return "Last";
             default :
                 //return "SerialDate.weekInMonthToString(): invalid code.";
                 throw new IllegalArgumentException();
