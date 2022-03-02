@@ -417,6 +417,9 @@ public abstract class DayDate implements Comparable,
 //            throw new IllegalArgumentException(
 //                    "SerialDate.monthCodeToString: month outside valid range.");
 //        }
+        if(12<month || month <1) {
+            throw new IllegalArgumentException("SerialDate.monthCodeToString: month outside valid range.");
+        }
 
         final String[] months;
 
