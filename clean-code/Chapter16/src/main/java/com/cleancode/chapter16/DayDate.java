@@ -95,7 +95,7 @@ public abstract class DayDate implements Comparable,
     }
 
     /** For serialization. */
-    private static final long serialVersionUID = -293716040467423637L;
+   // private static final long serialVersionUID = -293716040467423637L;
 
     /** Date format symbols. */
     public static final DateFormatSymbols
