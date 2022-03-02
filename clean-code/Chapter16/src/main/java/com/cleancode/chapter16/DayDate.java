@@ -101,35 +101,6 @@ public abstract class DayDate implements Comparable,
 
     public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
 
-    public static final int MONDAY = Calendar.MONDAY;
-
-    /**
-     * Useful constant for Tuesday. Equivalent to java.util.Calendar.TUESDAY.
-     */
-    public static final int TUESDAY = Calendar.TUESDAY;
-
-    /**
-     * Useful constant for Wednesday. Equivalent to
-     * java.util.Calendar.WEDNESDAY.
-     */
-    public static final int WEDNESDAY = Calendar.WEDNESDAY;
-
-    /**
-     * Useful constant for Thrusday. Equivalent to java.util.Calendar.THURSDAY.
-     */
-    public static final int THURSDAY = Calendar.THURSDAY;
-
-    /** Useful constant for Friday. Equivalent to java.util.Calendar.FRIDAY. */
-    public static final int FRIDAY = Calendar.FRIDAY;
-
-    /**
-     * Useful constant for Saturday. Equivalent to java.util.Calendar.SATURDAY.
-     */
-    public static final int SATURDAY = Calendar.SATURDAY;
-
-    /** Useful constant for Sunday. Equivalent to java.util.Calendar.SUNDAY. */
-    public static final int SUNDAY = Calendar.SUNDAY;
-
     /** The number of days in each month in non leap years. */
     static final int[] LAST_DAY_OF_MONTH =
             {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -207,31 +178,6 @@ public abstract class DayDate implements Comparable,
     protected DayDate() {
     }
 
-    /**
-     * Returns <code>true</code> if the supplied integer code represents a
-     * valid day-of-the-week, and <code>false</code> otherwise.
-     *
-     * @param code  the code being checked for validity.
-     *
-     * @return <code>true</code> if the supplied integer code represents a
-     *         valid day-of-the-week, and <code>false</code> otherwise.
-     */
-    public static boolean isValidWeekdayCode(final int code) {
-
-        switch(code) {
-            case SUNDAY:
-            case MONDAY:
-            case TUESDAY:
-            case WEDNESDAY:
-            case THURSDAY:
-            case FRIDAY:
-            case SATURDAY:
-                return true;
-            default:
-                return false;
-        }
-
-    }
 
     /**
      * Converts the supplied string to a day of the week.
@@ -308,37 +254,6 @@ public abstract class DayDate implements Comparable,
         }
 
     }
-
-    /**
-     * Returns true if the supplied integer code represents a valid month.
-     *
-     * @param code  the code being checked for validity.
-     *
-     * @return <code>true</code> if the supplied integer code represents a
-     *         valid month.
-     */
-
-//    public static boolean isValidMonthCode(final int code) {
-//
-//        switch(code) {
-//            case JANUARY:
-//            case FEBRUARY:
-//            case MARCH:
-//            case APRIL:
-//            case MAY:
-//            case JUNE:
-//            case JULY:
-//            case AUGUST:
-//            case SEPTEMBER:
-//            case OCTOBER:
-//            case NOVEMBER:
-//            case DECEMBER:
-//                return true;
-//            default:
-//                return false;
-//        }
-//
-//    }
 
     /**
      * Returns the quarter for the specified month.
@@ -635,11 +550,7 @@ public abstract class DayDate implements Comparable,
                                                final DayDate base) {
 
         // check arguments...
-        if (!DayDate.isValidWeekdayCode(targetWeekday)) {
-            throw new IllegalArgumentException(
-                    "Invalid day-of-the-week code."
-            );
-        }
+        Day.fromInt(targetWeekday);
 
         // find the date...
         final int adjust;
@@ -669,11 +580,7 @@ public abstract class DayDate implements Comparable,
                                                 final DayDate base) {
 
         // check arguments...
-        if (!DayDate.isValidWeekdayCode(targetWeekday)) {
-            throw new IllegalArgumentException(
-                    "Invalid day-of-the-week code."
-            );
-        }
+        Day.fromInt(targetWeekday);
 
         // find the date...
         final int adjust;
@@ -702,11 +609,7 @@ public abstract class DayDate implements Comparable,
                                               final DayDate base) {
 
         // check arguments...
-        if (!DayDate.isValidWeekdayCode(targetDOW)) {
-            throw new IllegalArgumentException(
-                    "Invalid day-of-the-week code."
-            );
-        }
+        Day.fromInt(targetDOW);
 
         // find the date...
         int delta = targetDOW - base.getDayOfWeek();
