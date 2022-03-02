@@ -17,60 +17,60 @@ public class BobsDayDateTest extends TestCase {
 
     public void testStringToWeekdayCode() throws Exception {
 
-        assertEquals(-1, stringToWeekdayCode("Hello"));
-        assertEquals(MONDAY, stringToWeekdayCode("Monday"));
-        assertEquals(MONDAY, stringToWeekdayCode("Mon"));
-        //todo    assertEquals(MONDAY,stringToWeekdayCode("monday"));
-        //    assertEquals(MONDAY,stringToWeekdayCode("MONDAY"));
-        //    assertEquals(MONDAY, stringToWeekdayCode("mon"));
+        assertEquals(-1, Day.parse("Hello"));
+        assertEquals(MONDAY, Day.parse("Monday"));
+        assertEquals(MONDAY, Day.parse("Mon"));
+        //todo    assertEquals(MONDAY,Day.parse("monday"));
+        //    assertEquals(MONDAY,Day.parse("MONDAY"));
+        //    assertEquals(MONDAY, Day.parse("mon"));
 
-        assertEquals(TUESDAY, stringToWeekdayCode("Tuesday"));
-        assertEquals(TUESDAY, stringToWeekdayCode("Tue"));
-        //    assertEquals(TUESDAY,stringToWeekdayCode("tuesday"));
-        //    assertEquals(TUESDAY,stringToWeekdayCode("TUESDAY"));
-        //    assertEquals(TUESDAY, stringToWeekdayCode("tue"));
-        //    assertEquals(TUESDAY, stringToWeekdayCode("tues"));
+        assertEquals(TUESDAY, Day.parse("Tuesday"));
+        assertEquals(TUESDAY, Day.parse("Tue"));
+        //    assertEquals(TUESDAY,Day.parse("tuesday"));
+        //    assertEquals(TUESDAY,Day.parse("TUESDAY"));
+        //    assertEquals(TUESDAY, Day.parse("tue"));
+        //    assertEquals(TUESDAY, Day.parse("tues"));
 
-        assertEquals(WEDNESDAY, stringToWeekdayCode("Wednesday"));
-        assertEquals(WEDNESDAY, stringToWeekdayCode("Wed"));
-        //    assertEquals(WEDNESDAY,stringToWeekdayCode("wednesday"));
-        //    assertEquals(WEDNESDAY,stringToWeekdayCode("WEDNESDAY"));
-        //    assertEquals(WEDNESDAY, stringToWeekdayCode("wed"));
+        assertEquals(WEDNESDAY, Day.parse("Wednesday"));
+        assertEquals(WEDNESDAY, Day.parse("Wed"));
+        //    assertEquals(WEDNESDAY,Day.parse("wednesday"));
+        //    assertEquals(WEDNESDAY,Day.parse("WEDNESDAY"));
+        //    assertEquals(WEDNESDAY, Day.parse("wed"));
 
-        assertEquals(THURSDAY, stringToWeekdayCode("Thursday"));
-        assertEquals(THURSDAY, stringToWeekdayCode("Thu"));
-        //    assertEquals(THURSDAY,stringToWeekdayCode("thursday"));
-        //    assertEquals(THURSDAY,stringToWeekdayCode("THURSDAY"));
-        //    assertEquals(THURSDAY, stringToWeekdayCode("thu"));
-        //    assertEquals(THURSDAY, stringToWeekdayCode("thurs"));
+        assertEquals(THURSDAY, Day.parse("Thursday"));
+        assertEquals(THURSDAY, Day.parse("Thu"));
+        //    assertEquals(THURSDAY,Day.parse("thursday"));
+        //    assertEquals(THURSDAY,Day.parse("THURSDAY"));
+        //    assertEquals(THURSDAY, Day.parse("thu"));
+        //    assertEquals(THURSDAY, Day.parse("thurs"));
 
-        assertEquals(FRIDAY, stringToWeekdayCode("Friday"));
-        assertEquals(FRIDAY, stringToWeekdayCode("Fri"));
-        //    assertEquals(FRIDAY,stringToWeekdayCode("friday"));
-        //    assertEquals(FRIDAY,stringToWeekdayCode("FRIDAY"));
-        //    assertEquals(FRIDAY, stringToWeekdayCode("fri"));
+        assertEquals(FRIDAY, Day.parse("Friday"));
+        assertEquals(FRIDAY, Day.parse("Fri"));
+        //    assertEquals(FRIDAY,Day.parse("friday"));
+        //    assertEquals(FRIDAY,Day.parse("FRIDAY"));
+        //    assertEquals(FRIDAY, Day.parse("fri"));
 
-        assertEquals(SATURDAY, stringToWeekdayCode("Saturday"));
-        assertEquals(SATURDAY, stringToWeekdayCode("Sat"));
-        //    assertEquals(SATURDAY,stringToWeekdayCode("saturday"));
-        //    assertEquals(SATURDAY,stringToWeekdayCode("SATURDAY"));
-        //    assertEquals(SATURDAY, stringToWeekdayCode("sat"));
+        assertEquals(SATURDAY, Day.parse("Saturday"));
+        assertEquals(SATURDAY, Day.parse("Sat"));
+        //    assertEquals(SATURDAY,Day.parse("saturday"));
+        //    assertEquals(SATURDAY,Day.parse("SATURDAY"));
+        //    assertEquals(SATURDAY, Day.parse("sat"));
 
-        assertEquals(SUNDAY, stringToWeekdayCode("Sunday"));
-        assertEquals(SUNDAY, stringToWeekdayCode("Sun"));
-        //    assertEquals(SUNDAY,stringToWeekdayCode("sunday"));
-        //    assertEquals(SUNDAY,stringToWeekdayCode("SUNDAY"));
-        //    assertEquals(SUNDAY, stringToWeekdayCode("sun"));
+        assertEquals(SUNDAY, Day.parse("Sunday"));
+        assertEquals(SUNDAY, Day.parse("Sun"));
+        //    assertEquals(SUNDAY,Day.parse("sunday"));
+        //    assertEquals(SUNDAY,Day.parse("SUNDAY"));
+        //    assertEquals(SUNDAY, Day.parse("sun"));
     }
 
     public void testWeekdayCodeToString() throws Exception {
-        assertEquals("Sunday", weekdayCodeToString(SUNDAY));
-        assertEquals("Monday", weekdayCodeToString(MONDAY));
-        assertEquals("Tuesday", weekdayCodeToString(TUESDAY));
-        assertEquals("Wednesday", weekdayCodeToString(WEDNESDAY));
-        assertEquals("Thursday", weekdayCodeToString(THURSDAY));
-        assertEquals("Friday", weekdayCodeToString(FRIDAY));
-        assertEquals("Saturday", weekdayCodeToString(SATURDAY));
+        assertEquals("Sunday", SUNDAY.toString());
+        assertEquals("Monday", MONDAY.toString());
+        assertEquals("Tuesday", TUESDAY.toString());
+        assertEquals("Wednesday", WEDNESDAY.toString());
+        assertEquals("Thursday", THURSDAY.toString());
+        assertEquals("Friday", FRIDAY.toString());
+        assertEquals("Saturday", SATURDAY.toString());
     }
 
 //    public void testIsValidMonthCode() throws Exception {
@@ -81,55 +81,55 @@ public class BobsDayDateTest extends TestCase {
 //    }
 
     public void testMonthToQuarter() throws Exception {
-        assertEquals(1, monthCodeToQuarter(1));
-        assertEquals(1, monthCodeToQuarter(2));
-        assertEquals(1, monthCodeToQuarter(3));
-        assertEquals(2, monthCodeToQuarter(4));
-        assertEquals(2, monthCodeToQuarter(5));
-        assertEquals(2, monthCodeToQuarter(6));
-        assertEquals(3, monthCodeToQuarter(7));
-        assertEquals(3, monthCodeToQuarter(8));
-        assertEquals(3, monthCodeToQuarter(9));
-        assertEquals(4, monthCodeToQuarter(10));
-        assertEquals(4, monthCodeToQuarter(11));
-        assertEquals(4, monthCodeToQuarter(12));
+        assertEquals(1, Month.JANUARY.quarter());
+        assertEquals(1, Month.FEBRUARY.quarter());
+        assertEquals(1, Month.MARCH.quarter());
+        assertEquals(2, Month.APRIL.quarter());
+        assertEquals(2, Month.MAY.quarter());
+        assertEquals(2, Month.JUNE.quarter());
+        assertEquals(3, Month.JULY.quarter());
+        assertEquals(3, Month.AUGUST.quarter());
+        assertEquals(3, Month.SEPTEMBER.quarter());
+        assertEquals(4, Month.OCTOBER.quarter());
+        assertEquals(4, Month.NOVEMBER.quarter());
+        assertEquals(4, Month.DECEMBER.quarter());
 
         try {
-            monthCodeToQuarter(-1);
+            Month.make(-1);
             fail("Invalid Month Code should throw exception");
         } catch (IllegalArgumentException e) {
         }
     }
 
     public void testMonthCodeToString() throws Exception {
-        assertEquals("January", monthCodeToString(1));
-        assertEquals("February", monthCodeToString(2));
-        assertEquals("March", monthCodeToString(3));
-        assertEquals("April", monthCodeToString(4));
-        assertEquals("May", monthCodeToString(5));
-        assertEquals("June", monthCodeToString(6));
-        assertEquals("July", monthCodeToString(7));
-        assertEquals("August", monthCodeToString(8));
-        assertEquals("September", monthCodeToString(9));
-        assertEquals("October", monthCodeToString(10));
-        assertEquals("November", monthCodeToString(11));
-        assertEquals("December", monthCodeToString(12));
+        assertEquals("January", Month.JANUARY.toString());
+        assertEquals("February", Month.FEBRUARY.toString());
+        assertEquals("March", Month.MARCH.toString());
+        assertEquals("April", Month.APRIL.toString();
+        assertEquals("May", Month.MAY.toString());
+        assertEquals("June", Month.JUNE.toString());
+        assertEquals("July", Month.JULY.toString());
+        assertEquals("August", Month.AUGUST.toString());
+        assertEquals("September", Month.SEPTEMBER.toString());
+        assertEquals("October", Month.OCTOBER.toString());
+        assertEquals("November", Month.NOVEMBER.toString());
+        assertEquals("December", Month.DECEMBER.toString());
 
-        assertEquals("Jan", monthCodeToString(1, true));
-        assertEquals("Feb", monthCodeToString(2, true));
-        assertEquals("Mar", monthCodeToString(3, true));
-        assertEquals("Apr", monthCodeToString(4, true));
-        assertEquals("May", monthCodeToString(5, true));
-        assertEquals("Jun", monthCodeToString(6, true));
-        assertEquals("Jul", monthCodeToString(7, true));
-        assertEquals("Aug", monthCodeToString(8, true));
-        assertEquals("Sep", monthCodeToString(9, true));
-        assertEquals("Oct", monthCodeToString(10, true));
-        assertEquals("Nov", monthCodeToString(11, true));
-        assertEquals("Dec", monthCodeToString(12, true));
+        assertEquals("Jan", Month.JANUARY.toShortString());
+        assertEquals("Feb", Month.FEBRUARY.toShortString());
+        assertEquals("Mar", Month.MARCH.toShortString());
+        assertEquals("Apr", Month.APRIL.toShortString());
+        assertEquals("May", Month.MAY.toShortString());
+        assertEquals("Jun", Month.JUNE.toShortString());
+        assertEquals("Jul", Month.JULY.toShortString());
+        assertEquals("Aug", Month.AUGUST.toShortString());
+        assertEquals("Sep", Month.SEPTEMBER.toShortString());
+        assertEquals("Oct", Month.OCTOBER.toShortString());
+        assertEquals("Nov", Month.NOVEMBER.toShortString());
+        assertEquals("Dec", Month.DECEMBER.toShortString());
 
         try {
-            monthCodeToString(-1);
+            Month.fromInt(-1);
             fail("Invalid month code should throw exception");
         } catch (IllegalArgumentException e) {
         }
@@ -297,10 +297,10 @@ public class BobsDayDateTest extends TestCase {
     }
 
     public void testAddYears() throws Exception {
-        assertEquals(d(1, 1, 1901), addYears(1, d(1, 1, 1900)));
-        assertEquals(d(28, 2, 1905), addYears(1, d(29, 2, 1904)));
-        assertEquals(d(28, 2, 1905), addYears(1, d(28, 2, 1904)));
-        assertEquals(d(28, 2, 1904), addYears(1, d(28, 2, 1903)));
+        assertEquals(d(1, 1, 1901), plusYears(1, d(1, 1, 1900)));
+        assertEquals(d(28, 2, 1905), plusYears(1, d(29, 2, 1904)));
+        assertEquals(d(28, 2, 1905), plusYears(1, d(28, 2, 1904)));
+        assertEquals(d(28, 2, 1904), plusYears(1, d(28, 2, 1903)));
     }
 
     public void testGetPreviousDayOfWeek() throws Exception {
@@ -437,7 +437,7 @@ public class BobsDayDateTest extends TestCase {
         DayDate date = createInstance(1, 1, 1900);
         assertEquals(1, date.getDayOfMonth());
         assertEquals(1, date.getMonth());
-        assertEquals(1900, date.getYYYY());
+        assertEquals(1900, date.getYear());
         assertEquals(2, date.toSerial());
     }
 
