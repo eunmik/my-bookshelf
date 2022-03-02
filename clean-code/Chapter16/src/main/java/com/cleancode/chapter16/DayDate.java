@@ -74,9 +74,6 @@ public abstract class DayDate implements Comparable,
 
     public static  int MAXIMUM_YEAR_SUPPORTED = 9999;
 
-    private static  int[] LAST_DAY_OF_MONTH =
-            {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
     public enum WeekInMonth {
         FIRST(1), SECOND(2), THIRD(3), FOURTH(4), LAST(0);
         public  int index;
@@ -193,93 +190,31 @@ public abstract class DayDate implements Comparable,
 
     }
 
-    /**
-     * Returns the number of the last day of the month, taking into account
-     * leap years.
-     *
-     * @param month  the month.
-     * @param yyyy  the year (in the range 1900 to 9999).
-     *
-     * @return the number of the last day of the month.
-     */
-    public static int lastDayOfMonth( int month,  int yyyy) {
+    public DayDate plusDays(int days) {
 
-         int result = LAST_DAY_OF_MONTH[month];
-        if (month != 2) {
-            return result;
-        }
-        else if (isLeapYear(yyyy)) {
-            return result + 1;
-        }
-        else {
-            return result;
-        }
+         return DayDateFactory.makeDate(toOrdinal() + days);
+    }
+
+    public DayDate plusMonths(int months) {
+
+         int thisMonthAsOrdinal = 12 * getYear() + getMonth().index -1;
+         int resultMonthAsOrdinal = thisMonthAsOrdinal + months;
+         int resultYear = resultMonthAsOrdinal + months;
+         Month resultMonth = Month.make(resultMonthAsOrdinal % 12 + 1);
+
+         int lastDayOfResultMonth = Month.lastDayOfMonth(resultMonth, resultYear);
+         int resultDay = Math.min(getDayOfMonth(), lastDayOfResultMonth);
+         return DayDateFactory.makeDate(resultDay, resultMonth, resultYear);
 
     }
 
-    /**
-     * Creates a new date by adding the specified number of days to the base
-     * date.
-     *
-     * @param days  the number of days to add (can be negative).
-     * @param base  the base date.
-     *
-     * @return a new date.
-     */
-    public static DayDate addDays( int days,  DayDate base) {
 
-         int serialDayNumber = base.toSerial() + days;
-        return DayDate.createInstance(serialDayNumber);
+    public DayDate plusYears(int years) {
 
-    }
-
-    /**
-     * Creates a new date by adding the specified number of months to the base
-     * date.
-     * <P>
-     * If the base date is close to the end of the month, the day on the result
-     * may be adjusted slightly:  31 May + 1 month = 30 June.
-     *
-     * @param months  the number of months to add (can be negative).
-     * @param base  the base date.
-     *
-     * @return a new date.
-     */
-    public static DayDate addMonths( int months,
-                                     DayDate base) {
-
-         int yy = (12 * base.getYYYY() + base.getMonth() + months - 1)
-                / 12;
-         int mm = (12 * base.getYYYY() + base.getMonth() + months - 1)
-                % 12 + 1;
-         int dd = Math.min(
-                base.getDayOfMonth(), DayDate.lastDayOfMonth(mm, yy)
-        );
-        return DayDate.createInstance(dd, mm, yy);
-
-    }
-
-    /**
-     * Creates a new date by adding the specified number of years to the base
-     * date.
-     *
-     * @param years  the number of years to add (can be negative).
-     * @param base  the base date.
-     *
-     * @return A new date.
-     */
-    public static DayDate addYears( int years,  DayDate base) {
-
-         int baseY = base.getYYYY();
-         int baseM = base.getMonth();
-         int baseD = base.getDayOfMonth();
-
-         int targetY = baseY + years;
-         int targetD = Math.min(
-                baseD, DayDate.lastDayOfMonth(baseM, targetY)
-        );
-
-        return DayDate.createInstance(targetD, baseM, targetY);
+        int resultYear = getYear() + years;
+        int lastDayOfMonthInResultYear = Month.lastDayOfMonth(getMonth(), resultYear);
+        int resultDay = Math.min(getDayOfMonth(), lastDayOfMonthInResultYear);
+        return DayDateFactory.makeDate(resultDay, getMonth(), resultYear);
 
     }
 
@@ -309,7 +244,7 @@ public abstract class DayDate implements Comparable,
             adjust = -7 + Math.max(0, targetWeekday - baseDOW);
         }
 
-        return DayDate.addDays(adjust, base);
+        return DayDate.plusDays(adjust, base);
 
     }
 
@@ -339,7 +274,7 @@ public abstract class DayDate implements Comparable,
             adjust = Math.max(0, targetWeekday - baseDOW);
         }
 
-        return DayDate.addDays(adjust, base);
+        return DayDate.plusDays(adjust, base);
     }
 
     /**
@@ -365,7 +300,7 @@ public abstract class DayDate implements Comparable,
         if (adjust > 3)
             adjust -= 7;
 
-        return DayDate.addDays(adjust, base);
+        return DayDate.plusDays(adjust, base);
 
     }
 
@@ -378,9 +313,9 @@ public abstract class DayDate implements Comparable,
      */
     public DayDate getEndOfCurrentMonth( DayDate base) {
          int last = DayDate.lastDayOfMonth(
-                base.getMonth(), base.getYYYY()
+                base.getMonth(), base.getYear()
         );
-        return DayDate.createInstance(last, base.getMonth(), base.getYYYY());
+        return DayDate.createInstance(last, base.getMonth(), base.getYear());
     }
 
     /**
@@ -498,7 +433,7 @@ public abstract class DayDate implements Comparable,
      */
     public String toString() {
         return getDayOfMonth() + "-" + Month.fromInt(getMonth())
-                + "-" + getYYYY();
+                + "-" + getYear();
     }
 
     /**
@@ -506,7 +441,7 @@ public abstract class DayDate implements Comparable,
      *
      * @return the year.
      */
-    public abstract int getYYYY();
+    public abstract int getYear();
 
     /**
      * Returns the month (January = 1, February = 2, March = 3).
