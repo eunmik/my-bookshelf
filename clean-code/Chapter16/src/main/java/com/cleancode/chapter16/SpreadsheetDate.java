@@ -65,19 +65,22 @@ public class SpreadsheetDate extends DayDate {
 
     public static final int EARLIEST_DATE_ORDINAL = 2; // 1/1/1900
     public static final int LATEST_DATE_ORDINAL = 2958465; // 12/31/9999
+
+    static final int[] AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
+            {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
+
+    static final int[]
+            LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
+            {0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};
+
     /**
      * The day number (1-Jan-1900 = 2, 2-Jan-1900 = 3, ..., 31-Dec-9999 =
      * 2958465).
      */
     private final int serial;
 
-    /** The day of the month (1 to 28, 29, 30 or 31 depending on the month). */
     private final int day;
-
-    /** The month of the year (1 to 12). */
     private final int month;
-
-    /** The year (1900 to 9999). */
     private final int year;
 
     /**
@@ -303,6 +306,15 @@ public class SpreadsheetDate extends DayDate {
         return compare((DayDate) other);
     }
 
+    private void calcOrdinal(int day, Month month, int year){
+//        int leapDaysForYear = DateUtil.leapYearCount(year - 1);
+//        int daysUpToYear = (year - MINIMUM_YEAR_SUPPORTED) * 365 + leapDaysForYear;
+//        int daysUpToMonth = AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[month.toInt()];
+//        if (DateUtil.isLeapYear(year) && month.toInt() > FEBRUARY.toInt())
+//            daysUpToMonth++;
+//        int daysInMonth = day -1;
+//        return daysUpToYear + daysUpToMonth + daysInMonth + EARLIEST_DATE_ORDINAL;
+    }
     /**
      * Returns true if this SerialDate represents the same date as the
      * specified SerialDate.
@@ -430,7 +442,7 @@ public class SpreadsheetDate extends DayDate {
      */
     private int calcSerial(final int d, final int m, final int y) {
         final int yy = ((y - 1900) * 365) + DayDate.leapYearCount(y - 1);
-        int mm = DayDate.AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[m];
+        int mm = AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[m];
         if (m > MonthConstants.FEBRUARY) {
             if (DayDate.isLeapYear(y)) {
                 mm = mm + 1;
