@@ -64,6 +64,7 @@ import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  *  An abstract class that defines our requirements for manipulating dates,
@@ -93,7 +94,7 @@ public abstract class SerialDate implements Comparable,
 
     /** Date format symbols. */
     public static final DateFormatSymbols
-            DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
+            DATE_FORMAT_SYMBOLS = new SimpleDateFormat("yyyy-MM-dd(EEE) HH:mm:ss", Locale.ENGLISH).getDateFormatSymbols();
 
     /** The serial number for 1 January 1900. */
     public static final int SERIAL_LOWER_BOUND = 2;
@@ -456,11 +457,11 @@ public abstract class SerialDate implements Comparable,
         // now search through the month names...
         if ((result < 1) || (result > 12)) {
             for (int i = 0; i < monthNames.length; i++) {
-                if (s.equals(shortMonthNames[i])) {
+                if (s.equalsIgnoreCase(shortMonthNames[i])) {
                     result = i + 1;
                     break;
                 }
-                if (s.equals(monthNames[i])) {
+                if (s.equalsIgnoreCase(monthNames[i])) {
                     result = i + 1;
                     break;
                 }
