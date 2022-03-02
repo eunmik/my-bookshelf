@@ -120,33 +120,9 @@ public abstract class DayDate implements Comparable,
         LAST, NEXT, NEAREST
     }
 
-    /**
-     * Returns an array of month names.
-     *
-     * @return an array of month names.
-     */
-    public static String[] getMonths() {
+    public static String[] getMonthsNames() {
 
-        return getMonths(false);
-
-    }
-
-    /**
-     * Returns an array of month names.
-     *
-     * @param shortened  a flag indicating that shortened month names should
-     *                   be returned.
-     *
-     * @return an array of month names.
-     */
-    public static String[] getMonths(boolean shortened) {
-
-        if (shortened) {
-            return DATE_FORMAT_SYMBOLS.getShortMonths();
-        }
-        else {
-            return DATE_FORMAT_SYMBOLS.getMonths();
-        }
+        return DATE_FORMAT_SYMBOLS.getMonths();
 
     }
 
