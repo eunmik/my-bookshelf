@@ -683,7 +683,7 @@ public abstract class SerialDate implements Comparable,
         // find the date...
         final int adjust;
         final int baseDOW = base.getDayOfWeek();
-        if (baseDOW > targetWeekday) {
+        if (baseDOW >= targetWeekday) { //This is a typical boundary condition error. before : if(baseDOW > targetWeekday)
             adjust = 7 + Math.min(0, targetWeekday - baseDOW);
         }
         else {
