@@ -2,18 +2,18 @@ package com.cleancode.chapter16;
 
 import junit.framework.TestCase;
 import java.util.*;
-
+import static com.cleancode.chapter16.Day.*;
 
 import static com.cleancode.chapter16.DayDate.*;
 
 public class BobsDayDateTest extends TestCase {
 
-    public void testIsValidWeekdayCode() throws Exception {
-        for (int day = 1; day <= 7; day++)
-            assertTrue(isValidWeekdayCode(day));
-        assertFalse(isValidWeekdayCode(0));
-        assertFalse(isValidWeekdayCode(8));
-    }
+//    public void testIsValidWeekdayCode() throws Exception {
+//        for (int day = 1; day <= 7; day++)
+//            assertTrue(isValidWeekdayCode(day));
+//        assertFalse(isValidWeekdayCode(0));
+//        assertFalse(isValidWeekdayCode(8));
+//    }
 
     public void testStringToWeekdayCode() throws Exception {
 
@@ -410,11 +410,11 @@ public class BobsDayDateTest extends TestCase {
     }
 
     public void testWeekInMonthToString() throws Exception {
-        assertEquals("First", weekInMonthToString(FIRST_WEEK_IN_MONTH));
-        assertEquals("Second", weekInMonthToString(SECOND_WEEK_IN_MONTH));
-        assertEquals("Third", weekInMonthToString(THIRD_WEEK_IN_MONTH));
-        assertEquals("Fourth", weekInMonthToString(FOURTH_WEEK_IN_MONTH));
-        assertEquals("Last", weekInMonthToString(LAST_WEEK_IN_MONTH));
+        assertEquals("First", weekInMonthToString(WeekInMonth.FIRST));
+        assertEquals("Second", weekInMonthToString(WeekInMonth.SECOND));
+        assertEquals("Third", weekInMonthToString(WeekInMonth.THIRD));
+        assertEquals("Fourth", weekInMonthToString(WeekInMonth.FOURTH));
+        assertEquals("Last", weekInMonthToString(WeekInMonth.LAST));
 
         try {
               weekInMonthToString(-1);
