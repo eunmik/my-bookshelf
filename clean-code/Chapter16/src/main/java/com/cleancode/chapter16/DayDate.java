@@ -65,34 +65,7 @@ import java.util.*;
  */
 public abstract class DayDate implements Comparable,
         Serializable{
-    public static enum Month {
-        JANUARY(1),
-        FEBRUARY(2),
-        MARCH(3),
-        APRIL(4),
-        MAY(5),
-        JUNE(6),
-        JULY(7),
-        AUGUST(8),
-        SEPTEMBER(9),
-        OCTOBER(10),
-        NOVEMBER(11),
-        DECEMBER(12);
 
-        Month(int index){
-            this.index = index;
-        }
-
-        public static Month make(int monthIndex){
-            for(Month m: Month.values()){
-                if(m.index == monthIndex)
-                    return m;
-            }
-            throw new IllegalArgumentException("Invalid month index" + monthIndex);
-        }
-        public  int index;
-
-    }
 
     public static  DateFormatSymbols
             DATE_FORMAT_SYMBOLS = new SimpleDateFormat("yyyy-MM-dd(EEE) HH:mm:ss", Locale.ENGLISH).getDateFormatSymbols();
@@ -123,87 +96,6 @@ public abstract class DayDate implements Comparable,
     public static String[] getMonthsNames() {
 
         return DATE_FORMAT_SYMBOLS.getMonths();
-
-    }
-
-    /**
-     * Returns the quarter for the specified month.
-     *
-     * @param code  the month code (1-12).
-     *
-     * @return the quarter that the month belongs to.
-     */
-    public static int monthCodeToQuarter(Month code) {
-
-        switch(code) {
-            case JANUARY:
-            case FEBRUARY:
-            case MARCH: return 1;
-            case APRIL:
-            case MAY:
-            case JUNE: return 2;
-            case JULY:
-            case AUGUST:
-            case SEPTEMBER: return 3;
-            case OCTOBER:
-            case NOVEMBER:
-            case DECEMBER: return 4;
-            default: throw new IllegalArgumentException(
-                    "SerialDate.monthCodeToQuarter: invalid month code.");
-        }
-
-    }
-
-    /**
-     * Returns a string representing the supplied month.
-     * <P>
-     * The string returned is the long form of the month name taken from the
-     * default locale.
-     *
-     * @param month  the month.
-     *
-     * @return a string representing the supplied month.
-     */
-    public static String monthCodeToString(int month) {
-
-        return monthCodeToString(month, false);
-
-    }
-
-    /**
-     * Returns a string representing the supplied month.
-     * <P>
-     * The string returned is the long or short form of the month name taken
-     * from the default locale.
-     *
-     * @param month  the month.
-     * @param shortened  if <code>true</code> return the abbreviation of the
-     *                   month.
-     *
-     * @return a string representing the supplied month.
-     */
-    public static String monthCodeToString(int month,
-                                           boolean shortened) {
-
-        // check arguments...
-//        if (!isValidMonthCode(month)) {
-//            throw new IllegalArgumentException(
-//                    "SerialDate.monthCodeToString: month outside valid range.");
-//        }
-        if(12<month || month <1) {
-            throw new IllegalArgumentException("SerialDate.monthCodeToString: month outside valid range.");
-        }
-
-         String[] months;
-
-        if (shortened) {
-            months = DATE_FORMAT_SYMBOLS.getShortMonths();
-        }
-        else {
-            months = DATE_FORMAT_SYMBOLS.getMonths();
-        }
-
-        return months[month - 1];
 
     }
 
@@ -274,27 +166,11 @@ public abstract class DayDate implements Comparable,
 
     }
 
-    /**
-     * Determines whether or not the specified year is a leap year.
-     *
-     * @param yyyy  the year (in the range 1900 to 9999).
-     *
-     * @return <code>true</code> if the specified year is a leap year.
-     */
-    public static boolean isLeapYear( int yyyy) {
-
-        if ((yyyy % 4) != 0) {
-            return false;
-        }
-        else if ((yyyy % 400) == 0) {
-            return true;
-        }
-        else if ((yyyy % 100) == 0) {
-            return false;
-        }
-        else {
-            return true;
-        }
+    public static boolean isLeapYear( int year) {
+        boolean fourth = year % 4 == 0;
+        boolean hundredth = year % 100 == 0;
+        boolean fourHundredth = year % 400 == 0;
+        return fourth && (!hundredth || fourHundredth);
 
     }
 
@@ -621,7 +497,7 @@ public abstract class DayDate implements Comparable,
      * @return  a string representation of the date.
      */
     public String toString() {
-        return getDayOfMonth() + "-" + DayDate.monthCodeToString(getMonth())
+        return getDayOfMonth() + "-" + Month.fromInt(getMonth())
                 + "-" + getYYYY();
     }
 
