@@ -36,27 +36,10 @@ package com.cleancode.chapter16;
  *
  * $Id: SpreadsheetDate.java,v 1.10 2006/08/29 13:59:30 mungady Exp $
  *
- * Changes
- * -------
- * 11-Oct-2001 : Version 1 (DG);
- * 05-Nov-2001 : Added getDescription() and setDescription() methods (DG);
- * 12-Nov-2001 : Changed name from ExcelDate.java to SpreadsheetDate.java (DG);
- *               Fixed a bug in calculating day, month and year from serial
- *               number (DG);
- * 24-Jan-2002 : Fixed a bug in calculating the serial number from the day,
- *               month and year.  Thanks to Trevor Hills for the report (DG);
- * 29-May-2002 : Added equals(Object) method (SourceForge ID 558850) (DG);
- * 03-Oct-2002 : Fixed errors reported by Checkstyle (DG);
- * 13-Mar-2003 : Implemented Serializable (DG);
- * 04-Sep-2003 : Completed isInRange() methods (DG);
- * 05-Sep-2003 : Implemented Comparable (DG);
- * 21-Oct-2003 : Added hashCode() method (DG);
- * 29-Aug-2006 : Removed redundant description attribute (DG);
  *
  */
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Represents a date using an integer, in a similar fashion to the
@@ -80,9 +63,8 @@ import java.util.Date;
  */
 public class SpreadsheetDate extends DayDate {
 
-    /** For serialization. */
-    private static final long serialVersionUID = -2039586705374454461L;
-
+    public static final int EARLIEST_DATE_ORDINAL = 2; // 1/1/1900
+    public static final int LATEST_DATE_ORDINAL = 2958465; // 12/31/9999
     /**
      * The day number (1-Jan-1900 = 2, 2-Jan-1900 = 3, ..., 31-Dec-9999 =
      * 2958465).
@@ -146,7 +128,7 @@ public class SpreadsheetDate extends DayDate {
      */
     public SpreadsheetDate(final int serial) {
 
-        if ((serial >= SERIAL_LOWER_BOUND) && (serial <= SERIAL_UPPER_BOUND)) {
+        if ((serial >= EARLIEST_DATE_ORDINAL) && (serial <= LATEST_DATE_ORDINAL)) {
             this.serial = serial;
         }
         else {
@@ -156,7 +138,7 @@ public class SpreadsheetDate extends DayDate {
 
         // the day-month-year needs to be synchronised with the serial number...
         // get the year from the serial date
-        final int days = this.serial - SERIAL_LOWER_BOUND;
+        final int days = this.serial - EARLIEST_DATE_ORDINAL;
         // overestimated because we ignored leap days
         final int overestimatedYYYY = 1900 + (days / 365);
         final int leaps = DayDate.leapYearCount(overestimatedYYYY);

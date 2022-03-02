@@ -94,26 +94,13 @@ public abstract class DayDate implements Comparable,
 
     }
 
-    /** For serialization. */
-   // private static final long serialVersionUID = -293716040467423637L;
-
-    /** Date format symbols. */
     public static final DateFormatSymbols
             DATE_FORMAT_SYMBOLS = new SimpleDateFormat("yyyy-MM-dd(EEE) HH:mm:ss", Locale.ENGLISH).getDateFormatSymbols();
 
-    /** The serial number for 1 January 1900. */
-    public static final int SERIAL_LOWER_BOUND = 2;
-
-    /** The serial number for 31 December 9999. */
-    public static final int SERIAL_UPPER_BOUND = 2958465;
-
-    /** The lowest year value supported by this date format. */
     public static final int MINIMUM_YEAR_SUPPORTED = 1900;
 
-    /** The highest year value supported by this date format. */
     public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
 
-    /** Useful constant for Monday. Equivalent to java.util.Calendar.MONDAY. */
     public static final int MONDAY = Calendar.MONDAY;
 
     /**
