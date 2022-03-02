@@ -228,53 +228,19 @@ public abstract class DayDate implements Comparable,
      * @return the latest date that falls on the specified day-of-the-week and
      *         is BEFORE the base date.
      */
-    public static DayDate getPreviousDayOfWeek( int targetWeekday,
-                                                DayDate base) {
-
-        // check arguments...
-        Day.fromInt(targetWeekday);
-
-        // find the date...
-         int adjust;
-         int baseDOW = base.getDayOfWeek();
-        if (baseDOW > targetWeekday) {
-            adjust = Math.min(0, targetWeekday - baseDOW);
-        }
-        else {
-            adjust = -7 + Math.max(0, targetWeekday - baseDOW);
-        }
-
-        return DayDate.plusDays(adjust, base);
-
+    public DayDate getPreviousDayOfWeek( Day targetDayOfWeek) {
+        int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
+        if(offsetToTarget >= 0)
+            offsetToTarget -= 7;
+        return plusDays(offsetToTarget);
     }
 
-    /**
-     * Returns the earliest date that falls on the specified day-of-the-week
-     * and is AFTER the base date.
-     *
-     * @param targetWeekday  a code for the target day-of-the-week.
-     * @param base  the base date.
-     *
-     * @return the earliest date that falls on the specified day-of-the-week
-     *         and is AFTER the base date.
-     */
-    public static DayDate getFollowingDayOfWeek( int targetWeekday,
-                                                 DayDate base) {
+    public DayDate getFollowingDayOfWeek(Day targetDayOfWeek) {
 
-        // check arguments...
-        Day.fromInt(targetWeekday);
-
-        // find the date...
-         int adjust;
-         int baseDOW = base.getDayOfWeek();
-        if (baseDOW >= targetWeekday) { //This is a typical boundary condition error. before : if(baseDOW > targetWeekday)
-            adjust = 7 + Math.min(0, targetWeekday - baseDOW);
-        }
-        else {
-            adjust = Math.max(0, targetWeekday - baseDOW);
-        }
-
-        return DayDate.plusDays(adjust, base);
+        int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
+        if (offsetToTarget <= 0)
+            offsetToTarget += 7;
+        return plusDays(offsetToTarget);
     }
 
     /**
