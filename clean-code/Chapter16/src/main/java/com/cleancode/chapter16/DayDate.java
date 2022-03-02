@@ -115,24 +115,10 @@ public abstract class DayDate implements Comparable,
             return index;
         }
     }
-    /**
-     * Useful constant for specifying a day of the week relative to a fixed
-     * date.
-     */
-    public static final int PRECEDING = -1;
 
-    /**
-     * Useful constant for specifying a day of the week relative to a fixed
-     * date.
-     */
-    public static final int NEAREST = 0;
-
-    /**
-     * Useful constant for specifying a day of the week relative to a fixed
-     * date.
-     */
-    public static final int FOLLOWING = 1;
-
+    public enum WeekdayRange {
+        LAST, NEXT, NEAREST
+    }
     /** A description for the date. */
     private String description;
 
@@ -633,12 +619,12 @@ public abstract class DayDate implements Comparable,
      *
      * @return a string representing the supplied 'relative'.
      */
-    public static String relativeToString(final int relative) {
+    public static String relativeToString(final WeekdayRange relative) {
 
         switch (relative) {
-            case DayDate.PRECEDING : return "Preceding";
-            case DayDate.NEAREST : return "Nearest";
-            case DayDate.FOLLOWING : return "Following";
+            case LAST : return "Preceding";
+            case NEAREST : return "Nearest";
+            case NEXT : return "Following";
             default :
                 //return "ERROR : Relative To String";
                 throw new IllegalArgumentException();
