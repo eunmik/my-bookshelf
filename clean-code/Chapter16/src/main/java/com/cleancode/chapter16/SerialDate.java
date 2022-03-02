@@ -61,6 +61,7 @@ package com.cleancode.chapter16;
 import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -256,11 +257,11 @@ public abstract class SerialDate implements Comparable,
         int result = -1;
         s = s.trim();
         for (int i = 0; i < weekDayNames.length; i++) {
-            if (s.equals(shortWeekdayNames[i])) {
+            if (s.equalsIgnoreCase(shortWeekdayNames[i])) {
                 result = i;
                 break;
             }
-            if (s.equals(weekDayNames[i])) {
+            if (s.equalsIgnoreCase(weekDayNames[i])) {
                 result = i;
                 break;
             }
@@ -323,6 +324,7 @@ public abstract class SerialDate implements Comparable,
      * @return <code>true</code> if the supplied integer code represents a
      *         valid month.
      */
+
     public static boolean isValidMonthCode(final int code) {
 
         switch(code) {
