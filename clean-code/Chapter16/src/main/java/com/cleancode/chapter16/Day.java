@@ -44,5 +44,9 @@ public enum Day {
         return index;
     }
 
+    public String toString() {
+        return dateSymbols.getWeekdays()[index];
+    }
+
 }
 

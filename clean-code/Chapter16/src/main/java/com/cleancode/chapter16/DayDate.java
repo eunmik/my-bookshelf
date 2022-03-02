@@ -119,44 +119,6 @@ public abstract class DayDate implements Comparable,
     public enum WeekdayRange {
         LAST, NEXT, NEAREST
     }
-    
-    public static int stringToWeekdayCode(String s) {
-
-        String[] shortWeekdayNames
-                = DATE_FORMAT_SYMBOLS.getShortWeekdays();
-        String[] weekDayNames = DATE_FORMAT_SYMBOLS.getWeekdays();
-
-        int result = -1;
-        s = s.trim();
-        for (int i = 0; i < weekDayNames.length; i++) {
-            if (s.equalsIgnoreCase(shortWeekdayNames[i])) {
-                result = i;
-                break;
-            }
-            if (s.equalsIgnoreCase(weekDayNames[i])) {
-                result = i;
-                break;
-            }
-        }
-        return result;
-
-    }
-
-    /**
-     * Returns a string representing the supplied day-of-the-week.
-     * <P>
-     * Need to find a better approach.
-     *
-     * @param weekday  the day of the week.
-     *
-     * @return a string representing the supplied day-of-the-week.
-     */
-    public static String weekdayCodeToString( int weekday) {
-
-        String[] weekdays = DATE_FORMAT_SYMBOLS.getWeekdays();
-        return weekdays[weekday];
-
-    }
 
     /**
      * Returns an array of month names.
