@@ -20,12 +20,22 @@ public enum Month {
     private static  int[] LAST_DAY_OF_MONTH =
             {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+    private static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols();
+    private int index;
 
     Month(int index){
         this.index = index;
     }
 
-    private static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols();
+
+
+    public static Month fromInt(int monthIndex) {
+        for (Month m : Month.values()) {
+            if(m.index == monthIndex)
+                return m;
+        }
+        throw new IllegalArgumentException("Invalid month index" + monthIndex);
+    }
 
     public static Month make(String s){
         for(Month m: Month.values()){
@@ -34,7 +44,7 @@ public enum Month {
         }
         throw new IllegalArgumentException("Invalid month index" + s);
     }
-    public  int index;
+
 
     public int quarter() {
         return 1+ (index-1)/3;
@@ -61,6 +71,22 @@ public enum Month {
 
     public int lastDay() {
         return LAST_DAY_OF_MONTH[index];
+    }
+
+    public static Month parse(String s){
+        s = s.trim();
+        for (Month m: Month.values())
+            if(m.matches(s))
+                return m;
+        try {
+            return fromInt(Integer.parseInt(s));
+        } catch (NumberFormatException e) {
+        }
+        throw new IllegalArgumentException("Invalid month " + s);
+    }
+
+    public int toInt() {
+        return index;
     }
 
 }
