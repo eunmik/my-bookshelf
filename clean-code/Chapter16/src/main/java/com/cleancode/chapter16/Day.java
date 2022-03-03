@@ -23,7 +23,7 @@ public enum Day {
         for (Day d : Day.values())
             if (d.index == index)
                 return d;
-        throw new IllegalArgumentException(
+            throw new IllegalArgumentException(
                 String.format("Illegal day index: %d", index)
         );
     }
