@@ -62,13 +62,6 @@ public enum Month {
         return s.equalsIgnoreCase(toString()) || s.equalsIgnoreCase(toShortString());
     }
 
-    public static int lastDayOfMonth(Month month, int year){
-        if (month == Month.FEBRUARY && DayDate.isLeapYear(year))
-            return month.lastDay() + 1;
-        else
-            return month.lastDay();
-    }
-
     public int lastDay() {
         return LAST_DAY_OF_MONTH[index];
     }
