@@ -1,6 +1,7 @@
 package com.cleancode.chapter16;
 
 import java.text.DateFormatSymbols;
+import java.util.Locale;
 
 public enum Month {
     JANUARY(1),
@@ -17,10 +18,10 @@ public enum Month {
     DECEMBER(12);
 
 
-    private static  int[] LAST_DAY_OF_MONTH =
+    private static int[] LAST_DAY_OF_MONTH =
             {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    private static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols();
+    private static DateFormatSymbols dateFormatSymbols = new DateFormatSymbols(Locale.ENGLISH);
     private int index;
 
     Month(int index){

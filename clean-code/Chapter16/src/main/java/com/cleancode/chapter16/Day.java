@@ -2,6 +2,7 @@ package com.cleancode.chapter16;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.util.Locale;
 
 public enum Day {
     MONDAY(Calendar.MONDAY),
@@ -13,7 +14,7 @@ public enum Day {
     SUNDAY(Calendar.SUNDAY);
 
     private final int index;
-    private static DateFormatSymbols dateSymbols = new DateFormatSymbols();
+    private static DateFormatSymbols dateSymbols = new DateFormatSymbols(Locale.ENGLISH);
 
     Day(int day) {
         index = day;
