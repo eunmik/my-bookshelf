@@ -10,10 +10,14 @@ import java.net.SocketException;
 public class Server implements Runnable{
     ServerSocket serverSocket;
     volatile boolean keepProcessing = true;
+    ConnectionManager connectionManager;
+    ClientScheduler clientScheduler = new ThreadPerRequestScheduler();
 
     public Server(int port, int millisecondsTimeout) throws IOException {
-        serverSocket = new ServerSocket(port);
-        serverSocket.setSoTimeout(millisecondsTimeout);
+       // serverSocket = new ServerSocket(port);
+       // serverSocket.setSoTimeout(millisecondsTimeout);
+        connectionManager = new ConnectionManager(port, millisecondsTimeout);
+
     }
 
     public void run(){
@@ -21,14 +25,15 @@ public class Server implements Runnable{
 
         while(keepProcessing) {
             try{
-                System.out.printf("accepting client\n");
-                Socket socket = serverSocket.accept();
-                System.out.println("got client\n");
-                process(socket);
+                ClientConnection clientConnection = connectionManager.awaitClient();
+                ClientRequestProcessor requestProcessor = new ClientRequestProcessor(clientConnection);
+                clientScheduler.schedule(requestProcessor);
+
             } catch (Exception e){
                 handle(e);
             }
         }
+        connectionManager.shutdown();
     }
 
     private void handle(Exception e){
