@@ -53,7 +53,7 @@ public class ClientTest {
     }
 
 
-    //시스템 작업 처리량을 검증하는 전형적인 예
+    //test that asserts that the performance is acceptable.
     @Test(timeout = 10000)
     public void shouldRunInUnder10Seconds() throws Exception{
         Thread[] threads = new Thread[10];
