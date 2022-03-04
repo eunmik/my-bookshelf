@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 
-public class Server {
+public class Server implements Runnable{
     ServerSocket serverSocket;
     volatile boolean keepProcessing = true;
 

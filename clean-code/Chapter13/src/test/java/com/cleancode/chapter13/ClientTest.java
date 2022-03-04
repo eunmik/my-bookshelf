@@ -21,7 +21,7 @@ public class ClientTest {
     public void createServer() throws Exception{
         try{
             server = new Server(PORT, TIMEOUT);
-            serverThread = new Thread((Runnable) server);
+            serverThread = new Thread(server);
             serverThread.start();
         } catch (Exception e){
             e.printStackTrace();
@@ -52,6 +52,8 @@ public class ClientTest {
         }
     }
 
+
+    //시스템 작업 처리량을 검증하는 전형적인 예
     @Test(timeout = 10000)
     public void shouldRunInUnder10Seconds() throws Exception{
         Thread[] threads = new Thread[10];
