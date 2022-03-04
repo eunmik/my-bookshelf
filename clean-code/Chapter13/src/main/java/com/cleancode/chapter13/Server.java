@@ -46,18 +46,26 @@ public class Server implements Runnable{
         if (socket == null)
             return;
 
-        try {
-            System.out.printf("Server: getting message\n");
-            String message = MessageUtils.getMessage(socket);
-            System.out.printf("Server: got message: %n", message);
-            Thread.sleep(1000);
-            System.out.printf("Server: sending reply: %s\n", message);
-            MessageUtils.sendMessage(socket, "Processed: " + message);
-            System.out.printf("Server: sent\n");
-            closeIgnoringException(socket);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        Runnable clientHandler = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    System.out.printf("Server: getting message\n");
+                    String message = MessageUtils.getMessage(socket);
+                    System.out.printf("Server: got message: %n", message);
+                    Thread.sleep(1000);
+                    System.out.printf("Server: sending reply: %s\n", message);
+                    MessageUtils.sendMessage(socket, "Processed: " + message);
+                    System.out.printf("Server: sent\n");
+                    closeIgnoringException(socket);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Thread clientConnection = new Thread(clientHandler);
+        clientConnection.start();
 
     }
 
