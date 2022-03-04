@@ -11,13 +11,12 @@ public class Server implements Runnable{
     ServerSocket serverSocket;
     volatile boolean keepProcessing = true;
     ConnectionManager connectionManager;
-    ClientScheduler clientScheduler = new ThreadPerRequestScheduler();
+    //ClientScheduler clientScheduler = new ThreadPerRequestScheduler();
+    ClientScheduler clientScheduler = new ExecutorClientScheduler(10);
+
 
     public Server(int port, int millisecondsTimeout) throws IOException {
-       // serverSocket = new ServerSocket(port);
-       // serverSocket.setSoTimeout(millisecondsTimeout);
         connectionManager = new ConnectionManager(port, millisecondsTimeout);
-
     }
 
     public void run(){
